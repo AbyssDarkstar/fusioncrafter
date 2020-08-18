@@ -181,10 +181,10 @@ The items aren't correctly inserted into the injectors.
 
 # TODO
 
-[ ] Add automated system for upgrading armor and tools.
-[x] Add support for item metadata. (Fix recipes like *Reactor Stabilizer*)
-[ ] Ore dictionary support.
-[x] Support same item in *Crafting Injectors* and *Fusion Core* for recipes.
-[ ] Add support for alternative input items.
-[ ] Update Recipes list with more recipes now that metadata support has been added.
-[ ] Create a default config file, using just vanilla draconic evolution recipes.
+- [ ] Add automated system for upgrading armor and tools.
+- [x] Add support for item metadata. (Fix recipes like *Reactor Stabilizer*)
+- [ ] Ore dictionary support.
+- [x] Support same item in *Crafting Injectors* and *Fusion Core* for recipes.
+- [ ] Add support for alternative input items.
+- [ ] Update Recipes list with more recipes now that metadata support has been added.
+- [ ] Create a default config file, using just vanilla draconic evolution recipes.
