@@ -11,16 +11,15 @@ Set up a **Transposer** with five inventories connected to it and set up some pi
 * One piping items from another chest into the *Fusion Crafting Core*.
 * One piping items from the *Fusion Crafting Core* into another unused chest.
 
-Now download the program and a fitting config version for your modpack:
+Now download the program installer and run:
 
 ```shell
-wget https://raw.githubusercontent.com/sedlak477/fusioncrafter/master/fusioncrafter.lua
-wget https://raw.githubusercontent.com/sedlak477/fusioncrafter/master/<VERSION>-config.lua config.lua
+wget https://raw.githubusercontent.com/sedlak477/fusioncrafter/master/install-fusioncrafter.lua
 ```
 
-Tweak the inventories which interface with the transposer in the config and start `fusioncrafter.lua`.
+Tweak the inventories which interface with the transposer in the config and start `start-fusioncrafter.lua`.
 
-> You can add `fusioncrafter.lua` to the autostart so you don't have to start it everytime you reboot.
+> You can add `start-fusioncrafter.lua` to the autostart so you don't have to start it everytime you reboot.
 
 Done, Happy crafting!
 
@@ -108,26 +107,27 @@ install
 
 If you are done, reboot into the fresh *OpenOS* installation.
 
-Now download the latest version of the program with this command:
+Now download the latest version of the program installer with this command:
 
 ```shell
-wget https://raw.githubusercontent.com/sedlak477/fusioncrafter/master/fusioncrafter.lua
+wget https://raw.githubusercontent.com/sedlak477/fusioncrafter/master/install-fusioncrafter.lua
 ```
 
-You'll also need a config file which contains all the crafting recipes and configuration. You can download a preset and change it to your liking:
-
-> Replace `<VERSION>` with the version you want. You can see all the versions by browsing the files in the repository.
+Then run it with this command:
 
 ```shell
-wget https://raw.githubusercontent.com/sedlak477/fusioncrafter/master/<VERSION>-config.lua config.lua
+install-fusioncrafter.lua
 ```
 
-Depending on which version you downloaded, you only need the change the sides for the **Transposer** and you're done.
+You'll need to change the config file to your liking:
 
-Open `config.lua` for editing:
+You only need the change the sides for the **Transposer** and you're done.
+More recipes might need adding depending on your modpack.
+
+Open `fusioncrafter/config.lua` for editing:
 
 ```
-edit config.lua
+edit fusioncrafter/config.lua
 ```
 
 Now go to the part where it says `config.inventories = { ... }` and change the numbers according to your setup. Each number represents a direction the inventory is adjacent to the *Transposer*.
@@ -142,7 +142,7 @@ Now go to the part where it says `config.inventories = { ... }` and change the n
 
 Save and quit with `Ctrl + S` and `Ctrl + W`.
 
-Now we are nearly done, just add the `fusioncrafter.lua` to the autostart. We do this by editing `.shrc`:
+Now we are nearly done, just add the `start-fusioncrafter.lua` to the autostart. We do this by editing `.shrc`:
 
 ```shell
 edit .shrc
@@ -151,7 +151,7 @@ edit .shrc
 And add the following line to its end:
 
 ```shell
-fusioncrafter.lua
+start-fusioncrafter.lua
 ```
 
 Done! Pop the **Hard Disk** into the crafting computer and never worry about it again.
@@ -181,8 +181,10 @@ The items aren't correctly inserted into the injectors.
 
 # TODO
 
-* Add automated system for upgrading armor and tools.
-* Add support for item metadata. (Fix recipes like *Reactor Stabilizer*)
-* Ore dictionary support.
-* Support same item in *Crafting Injectors* and *Fusion Core* for recipes.
-* Add support for alternative input items.
+[ ] Add automated system for upgrading armor and tools.
+[x] Add support for item metadata. (Fix recipes like *Reactor Stabilizer*)
+[ ] Ore dictionary support.
+[x] Support same item in *Crafting Injectors* and *Fusion Core* for recipes.
+[ ] Add support for alternative input items.
+[ ] Update Recipes list with more recipes now that metadata support has been added.
+[ ] Create a default config file, using just vanilla draconic evolution recipes.
