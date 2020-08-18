@@ -34,14 +34,14 @@ config.inventories = {
 -- Foramt:
 -- {
 --   input = {  -- Items needed to craft; This includes the item put into the core
---     <item id> = <item amount>,
---     <item id> = <item amount>,
+--     [<item id>] = <item amount>,
+--     [<item id>] = <item amount>,
 --     ...
 --   },
---   core = <item id>,  -- Item to be put into the fusion crafting core
+--   core = { [<item id>] = <item amount>,  -- Item to be put into the fusion crafting core, and it's amount
 --   output = {  -- Items that result from the crafting
---     <item id> = <item amount>,
---     <item id> = <item amount>,
+--     [<item id>] = <item amount>,
+--     [<item id>] = <item amount>,
 --     ...
 --   }
 -- }
@@ -56,7 +56,8 @@ config.recipes = {
       ["minecraft:nether_star"] = 2,
       ["minecraft:emerald_block"] = 1
     },
-    core = "minecraft:emerald_block"
+    core = { ["minecraft:emerald_block"] = 1 },
+    name = "Wyvern Core"
   },
   {
     output = { ["draconicevolution:draconic_block"] = 4 },
@@ -65,7 +66,8 @@ config.recipes = {
       ["draconicevolution:dragon_heart"] = 1,
       ["draconicevolution:draconium_block"] = 4
     },
-    core = "draconicevolution:draconium_block"
+    core = { ["draconicevolution:draconium_block"] = 4 },
+    name = "Awakened Draconium Block"
   },
   {
     output = { ["draconicevolution:awakened_core"] = 1 },
@@ -74,7 +76,18 @@ config.recipes = {
       ["draconicevolution:draconic_block"] = 4,
       ["minecraft:nether_star"] = 1
     },
-    core = "minecraft:nether_star"
+    core = { ["minecraft:nether_star"] = 1 },
+    name = "Awakened Core"
+  },
+  {
+    output = { ["draconicevolution:chaotic_core"] = 1 },
+    input = {
+      ["draconicevolution:chaos_shard"] = 5,
+      ["draconicevolution:draconic_block"] = 6,
+      ["draconicevolution:awakened_core"] = 4
+    },
+    core = { ["draconicevolution:chaos_shard"] = 1 },
+    name = "Chaotic Core"
   },
   {
     output = { ["draconicevolution:draconic_energy_core"] = 1 },
@@ -84,7 +97,8 @@ config.recipes = {
       ["draconicevolution:wyvern_energy_core"] = 1,
       ["draconicevolution:awakened_core"] = 1
     },
-    core = "draconicevolution:wyvern_energy_core"
+    core = { ["draconicevolution:wyvern_energy_core"] = 1 },
+    name = "Draconic Energy Core"
   },
   {
     output = { ["draconicevolution:energy_crystal"] = 4 },  -- Draconic energy relay crystal
@@ -95,7 +109,8 @@ config.recipes = {
       ["draconicevolution:wyvern_core"] = 1,
       ["draconicevolution:energy_crystal"] = 4
     },
-    core = "draconicevolution:energy_crystal"
+    core = { ["draconicevolution:energy_crystal"] = 4 },
+    name = "Draconic Energy Relay Crystal"
   },
   {
     output = { ["draconicevolution:particle_generator"] = 1 },  -- Energy core stabilizer
@@ -104,7 +119,8 @@ config.recipes = {
       ["draconicevolution:wyvern_core"] = 2,
       ["draconicevolution:particle_generator"] = 1
     },
-    core = "draconicevolution:particle_generator"
+    core = { ["draconicevolution:particle_generator"] = 1 },
+    name = "Energy Core Stabilizer"
   },
   {
     output = { ["draconicevolution:infused_obsidian"] = 1 },
@@ -115,7 +131,8 @@ config.recipes = {
       ["minecraft:blaze_powder"] = 2,
       ["minecraft:obsidian"] = 1
     },
-    core = "minecraft:obsidian"
+    core = { ["minecraft:obsidian"] = 1 },
+    name = "Infused Obsidian"
   },
   {
     output = { ["draconicevolution:crafting_injector"] = 1 },  -- Wyvern crafting injector
@@ -126,7 +143,8 @@ config.recipes = {
       ["draconicevolution:draconic_core"] = 2,
       ["draconicevolution:crafting_injector"] = 1
     },
-    core = "draconicevolution:crafting_injector"
+    core = { ["draconicevolution:crafting_injector"] = 1 },
+    name = "Wyvern Fusion Crafting Injector"
   },
   {
     output = { ["draconicevolution:crafting_injector"] = 1 },  -- Draconic crafting injector
@@ -137,7 +155,8 @@ config.recipes = {
       ["minecraft:dragon_egg"] = 1,
       ["draconicevolution:crafting_injector"] = 1
     },
-    core = "draconicevolution:crafting_injector"
+    core = { ["draconicevolution:crafting_injector"] = 1 },
+    name = "Draconic Fusion Crafting Injector"
   },
   {
     output = { ["draconicevolution:crafting_injector"] = 1 },  -- Chaotic crafting injector
@@ -148,7 +167,8 @@ config.recipes = {
       ["minecraft:dragon_egg"] = 1,
       ["draconicevolution:crafting_injector"] = 1
     },
-    core = "draconicevolution:crafting_injector"
+    core = { ["draconicevolution:crafting_injector"] = 1 },
+    name = "Chaotic Fusion Crafting Injector"
   },
   {
     output = { ["draconicevolution:reactor_core"] = 1 },
@@ -158,7 +178,8 @@ config.recipes = {
       ["draconicevolution:chaos_shard"] = 1,
       ["draconicevolution:draconium_ingot"] = 3
     },
-    core = "draconicevolution:chaos_shard"
+    core = { ["draconicevolution:chaos_shard"] = 1 },
+    name = "Draconic Reactor Core"
   },
   {
     output = { ["draconicevolution:reactor_component"] = 1 },  -- Reactor energy injector
@@ -168,7 +189,8 @@ config.recipes = {
       ["draconicevolution:reactor_part"] = 4,
       ["minecraft:iron_ingot"] = 1
     },
-    core = "draconicevolution:awakened_core"
+    core = { ["draconicevolution:awakened_core"] = 1 },
+    name = "Reactor Energy Injector"
   },
   {
     output = { ["draconicevolution:draconium_chest"] = 1 },
@@ -179,7 +201,8 @@ config.recipes = {
       ["minecraft:chest"] = 1,
       ["minecraft:crafting_table"] = 2
     },
-    core = "minecraft:chest"
+    core = { ["minecraft:chest"] = 1 },
+    name = "Draconium Chest"
   },
   {
     output = { ["draconicevolution:ender_energy_manipulator"] = 1 },
@@ -189,7 +212,8 @@ config.recipes = {
       ["draconicevolution:wyvern_core"] = 3,
       ["minecraft:ender_eye"] = 3
     },
-    core = "minecraft:skull"
+    core = { ["minecraft:skull"] = 1 },
+    name = "Ender Energy Manipulator"
   },
   {
     output = { ["draconicevolution:draconic_pick"] = 1 },
@@ -197,9 +221,10 @@ config.recipes = {
       ["draconicevolution:draconic_block"] = 2,
       ["draconicevolution:awakened_core"] = 1,
       ["draconicevolution:wyvern_pick"] = 1,
-      ["draconicevolution:draconic_energy_Core"] = 1
+      ["draconicevolution:draconic_energy_core"] = 1
     },
-    core = "draconicevolution:wyvern_pick"
+    core = { ["draconicevolution:wyvern_pick"] = 1 },
+    name = "Draconic Pickaxe"
   },
   {
     output = { ["draconicevolution:draconic_shovel"] = 1 },
@@ -207,9 +232,10 @@ config.recipes = {
       ["draconicevolution:draconic_block"] = 2,
       ["draconicevolution:awakened_core"] = 1,
       ["draconicevolution:wyvern_shovel"] = 1,
-      ["draconicevolution:draconic_energy_Core"] = 1
+      ["draconicevolution:draconic_energy_core"] = 1
     },
-    core = "draconicevolution:wyvern_shovel"
+    core = { ["draconicevolution:wyvern_shovel"] = 1 },
+    name = "Draconic Shovel"
   },
   {
     output = { ["draconicevolution:draconic_axe"] = 1 },
@@ -217,9 +243,10 @@ config.recipes = {
       ["draconicevolution:draconic_block"] = 2,
       ["draconicevolution:awakened_core"] = 1,
       ["draconicevolution:wyvern_axe"] = 1,
-      ["draconicevolution:draconic_energy_Core"] = 1
+      ["draconicevolution:draconic_energy_core"] = 1
     },
-    core = "draconicevolution:wyvern_axe"
+    core = { ["draconicevolution:wyvern_axe"] = 1 },
+    name = "Draconic Axe"
   },
   {
     output = { ["draconicevolution:draconic_bow"] = 1 },
@@ -227,9 +254,10 @@ config.recipes = {
       ["draconicevolution:draconic_block"] = 2,
       ["draconicevolution:awakened_core"] = 1,
       ["draconicevolution:wyvern_bow"] = 1,
-      ["draconicevolution:draconic_energy_Core"] = 1
+      ["draconicevolution:draconic_energy_core"] = 1
     },
-    core = "draconicevolution:wyvern_bow"
+    core = { ["draconicevolution:wyvern_bow"] = 1 },
+    name = "Draconic Bow"
   },
   {
     output = { ["draconicevolution:draconic_sword"] = 1 },
@@ -237,9 +265,10 @@ config.recipes = {
       ["draconicevolution:draconic_block"] = 2,
       ["draconicevolution:awakened_core"] = 1,
       ["draconicevolution:wyvern_sword"] = 1,
-      ["draconicevolution:draconic_energy_Core"] = 1
+      ["draconicevolution:draconic_energy_core"] = 1
     },
-    core = "draconicevolution:wyvern_sword"
+    core = { ["draconicevolution:wyvern_sword"] = 1 },
+    name = "Draconic Sword"
   },
   {
     output = { ["draconicevolution:draconic_hoe"] = 1 },
@@ -247,9 +276,10 @@ config.recipes = {
       ["draconicevolution:draconic_block"] = 2,
       ["draconicevolution:awakened_core"] = 1,
       ["minecraft:diamond_hoe"] = 1,
-      ["draconicevolution:draconic_energy_Core"] = 1
+      ["draconicevolution:draconic_energy_core"] = 1
     },
-    core = "minecraft:diamond_hoe"
+    core = { ["minecraft:diamond_hoe"] = 1 },
+    name = "Draconic Hoe"
   },
   {
     output = { ["draconicevolution:draconic_staff_of_power"] = 1 },
@@ -260,7 +290,8 @@ config.recipes = {
       ["draconicevolution:draconic_shovel"] = 1,
       ["draconicevolution:draconic_sword"] = 1
     },
-    core = "draconicevolution:draconic_pick"
+    core = { ["draconicevolution:draconic_pick"] = 1 },
+    name = "Draconic Staff of Power"
   },
   {
     output = { ["draconicevolution:dislocator_advanced"] = 1 },
@@ -270,48 +301,52 @@ config.recipes = {
       ["draconicevolution:draconium_ingot"] = 4,
       ["draconicevolution:dislocator"] = 1
     },
-    core = "draconicevolution:dislocator"
+    core = { ["draconicevolution:dislocator"] = 1 },
+    name = "Advanced Dislocator"
   },
   {
     output = { ["draconicevolution:draconic_helm"] = 1 },
     input = {
       ["draconicevolution:draconic_block"] = 1,
-      ["draconicevolution:draconic_pick"] = 1,
-      ["draconicevolution:draconic_block"] = 1,
+      ["draconicevolution:awakened_core"] = 1,
+      ["draconicevolution:draconic_energy_core"] = 1,
       ["draconicevolution:wyvern_helm"] = 1
     },
-    core = "draconicevolution:wyvern_helm"
+    core = { ["draconicevolution:wyvern_helm"] = 1 },
+    name = "Draconic Helm"
   },
   {
     output = { ["draconicevolution:draconic_legs"] = 1 },
     input = {
       ["draconicevolution:draconic_block"] = 1,
-      ["draconicevolution:draconic_pick"] = 1,
-      ["draconicevolution:draconic_block"] = 1,
+      ["draconicevolution:awakened_core"] = 1,
+      ["draconicevolution:draconic_energy_core"] = 1,
       ["draconicevolution:wyvern_legs"] = 1
     },
-    core = "draconicevolution:wyvern_legs"
+    core = { ["draconicevolution:wyvern_legs"] = 1 },
+    name = "Draconic Legs"
   },
   {
     output = { ["draconicevolution:draconic_boots"] = 1 },
     input = {
       ["draconicevolution:draconic_block"] = 1,
-      ["draconicevolution:draconic_pick"] = 1,
-      ["draconicevolution:draconic_block"] = 1,
+      ["draconicevolution:awakened_core"] = 1,
+      ["draconicevolution:draconic_energy_core"] = 1,
       ["draconicevolution:wyvern_boots"] = 1
     },
-    core = "draconicevolution:wyvern_boots"
+    core = { ["draconicevolution:wyvern_boots"] = 1 },
+    name = "Draconic Boots"
   },
   {
     output = { ["draconicevolution:draconic_chest"] = 1 },
     input = {
       ["draconicevolution:draconic_block"] = 1,
-      ["draconicevolution:draconic_pick"] = 1,
-      ["draconicevolution:draconic_block"] = 1,
-      ["draconicevolution:wyvern_chest"] = 1,
-      ["extrautils2:angelring"] = 1
+      ["draconicevolution:awakened_core"] = 1,
+      ["draconicevolution:draconic_energy_core"] = 1,
+      ["draconicevolution:wyvern_chest"] = 1
     },
-    core = "draconicevolution:wyvern_chest"
+    core = { ["draconicevolution:wyvern_chest"] = 1 },
+    name = "Draconic Chestplate"
   },
   {
     output = { ["atmtweaks:item_material"] = 1 },  -- Growth essence
@@ -322,7 +357,8 @@ config.recipes = {
       ["minecraft:dye"] = 1,
       ["botania:manaresource"] = 1
     },
-    core = "forestry:royal_jelly"
+    core = { ["forestry:royal_jelly"] = 1 },
+	name = "Growth Essence"
   }
 }
 

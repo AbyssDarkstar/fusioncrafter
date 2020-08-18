@@ -1,10 +1,9 @@
 -- fusioncrafter.lua
 -- Author: sedlak477
 -- This program automates Draconic Evolution Fusion Crafting
-
+local thread = require("thread")
 local transposer = require("component").transposer
 local config = require("config")
-
 
 -- Load side mappings from config
 local input = config.inventories.input
@@ -16,13 +15,11 @@ local result = config.inventories.result
 -- Load recipes from config
 local recipes = config.recipes
 
-
 -- Greet user with a friendly message
 local function printHello()
   print("FusionCrafter v1.0 by sedlak477")
   print()
 end
-
 
 -- Retrun amount of item in inventory
 local function getItemAmount(id, side)
@@ -34,7 +31,6 @@ local function getItemAmount(id, side)
   end
   return 0
 end
-
 
 -- Check if recipe is craftable with
 -- current items
@@ -48,7 +44,6 @@ local function canCraft(recipe)
   end
   return true
 end
-
 
 -- Find item slot in inventory
 -- Pass nil for item to find empty slot
@@ -67,7 +62,6 @@ local function find(inventory, item)
     end
   end
 end
-
 
 -- Transfer 'amount' of item 'id' from 'from' to a free slot in 'to'
 local function transfer(id, amount, from, to)
@@ -89,7 +83,6 @@ local function transfer(id, amount, from, to)
   transposer.transferItem(from, to, amount, slotFrom, slotTo)
 end
 
-
 -- Wait until items are in inventory
 local function waitItems(inventory, items)
   while true do
@@ -100,11 +93,13 @@ local function waitItems(inventory, items)
         itemsExist = false
         break
       end
+	  
       if transposer.getSlotStackSize(inventory, slot) < amount then
         itemsExist = false
         break
       end
     end
+	
     if itemsExist then
       return
     end
@@ -112,27 +107,27 @@ local function waitItems(inventory, items)
   end
 end
 
-
 -- Craft provided recipe
 local function craft(recipe)
-
   -- Tell the user what we are doing
   local resultString = ""
-  for item, amount in pairs(recipe.output) do
-    resultString = resultString .. item .. " "
+  local coreItem = ""
+  local coreAmount = 0
+  io.write("Crafting " .. recipe.name .. "...")
+
+  for item, amount in pairs(recipe.core) do
+    coreItem = item
+    coreAmount = amount
+    transfer(item, amount, input, core)
   end
-  io.write("Crafting " .. resultString .. "...")
 
   -- Put input items into their places
   for item, amount in pairs(recipe.input) do
-
-    -- If item is the core item transfer it to the core inventory
-    if item == recipe.core then
-      transfer(item, amount, input, core)
+    -- If the item is a core item, and has been moved to the core completely, just skip it and move on
+    if item == coreItem and amount == coreAmount then
     else  -- Else put it into the injectors
       transfer(item, amount, input, injectors)
     end
-
   end
 
   -- Wait for output
@@ -146,33 +141,34 @@ local function craft(recipe)
   print(" Done")
 end
 
-
 -- Check if a valid recipe is in the input
 local function checkCrafting()  
-
   -- Check all recipes if one is craftable
   for i, recipe in pairs(recipes) do
-
     -- If we can craft it, we craft it
     if canCraft(recipe) then
       craft(recipe)
       return
     end
-
   end
 
   os.sleep(2)
 end
 
-
 -- The fun starts here
-local function main()
+local main = thread.create(function()
   printHello()
 
   print("Ready! Waiting for craftable recipes")
   while true do
     checkCrafting()
-  end  
-end
+  end
+end)
 
-main()
+local userInputThread = thread.create(function()  
+  io.read()
+end)
+
+thread.waitForAny({main, userInputThread})
+io.write("Program closing\n")
+os.exit(0) -- kills all remaining threads
