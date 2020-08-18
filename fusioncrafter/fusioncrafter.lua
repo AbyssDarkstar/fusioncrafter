@@ -1,9 +1,12 @@
 -- fusioncrafter.lua
 -- Author: sedlak477
 -- This program automates Draconic Evolution Fusion Crafting
+
 local thread = require("thread")
 local transposer = require("component").transposer
 local config = require("config")
+local event = require("event")
+local str = require("str")
 
 -- Load side mappings from config
 local input = config.inventories.input
@@ -22,10 +25,14 @@ local function printHello()
 end
 
 -- Retrun amount of item in inventory
-local function getItemAmount(id, side)
+local function getItemAmount(item, side)
+  local t = str.split(item, "%/")
+  local name = t[1]
+  local variant = tonumber(t[2])
+  
   -- Look through all items to see if the requested exists
   for stack in transposer.getAllStacks(side) do
-    if stack.name == id then
+    if stack.name == name and stack.damage == variant then
       return stack.size
     end
   end
@@ -35,8 +42,8 @@ end
 -- Check if recipe is craftable with
 -- current items
 local function canCraft(recipe)
-  for id, neededAmount in pairs(recipe.input) do
-    local availableAmount = getItemAmount(id, input)
+  for item, neededAmount in pairs(recipe.input) do
+    local availableAmount = getItemAmount(item, input)
 
     if availableAmount < neededAmount then
       return false
@@ -49,6 +56,15 @@ end
 -- Pass nil for item to find empty slot
 -- Returns nil if no slot is found
 local function find(inventory, item)
+  local name = ""
+  local variant = 0
+  
+  if item ~= nil then
+    local t = str.split(item, "%/")
+    name = t[1]
+    variant = tonumber(t[2])
+  end
+    
   for slot = 1, transposer.getInventorySize(inventory), 1 do
     if item == nil then
       if transposer.getSlotStackSize(inventory, slot) == 0 then
@@ -56,7 +72,7 @@ local function find(inventory, item)
       end
     else
       local stack = transposer.getStackInSlot(inventory, slot)
-      if stack ~= nil and stack.name == item then
+      if stack ~= nil and stack.name == name and stack.damage == variant then
         return slot
       end
     end
@@ -64,14 +80,14 @@ local function find(inventory, item)
 end
 
 -- Transfer 'amount' of item 'id' from 'from' to a free slot in 'to'
-local function transfer(id, amount, from, to)
+local function transfer(item, amount, from, to)
   -- Get slots with items
-  local slotFrom = find(from, id)
+  local slotFrom = find(from, item)
   local slotTo = find(to, nil)
-  
+
   -- Do some error checking
   if slotFrom == nil then
-    print("Error: transfer: No item '" .. id .. "' in source inventory")
+    print("Error: transfer: No item '" .. item .. "' in source inventory")
     return
   end
 
@@ -93,16 +109,16 @@ local function waitItems(inventory, items)
         itemsExist = false
         break
       end
-	  
       if transposer.getSlotStackSize(inventory, slot) < amount then
         itemsExist = false
         break
       end
     end
-	
+
     if itemsExist then
       return
     end
+    
     os.sleep(1)
   end
 end
@@ -142,7 +158,7 @@ local function craft(recipe)
 end
 
 -- Check if a valid recipe is in the input
-local function checkCrafting()  
+local function checkCrafting()
   -- Check all recipes if one is craftable
   for i, recipe in pairs(recipes) do
     -- If we can craft it, we craft it
